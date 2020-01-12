@@ -37,6 +37,9 @@ export class HomePage {
   fetchData(query, nextUrl?) {
     this.presentLoading()
     this.initialize()
+    if(!this.nextUrl){
+      this.users = []
+    }
     this.global.httpRequest(query, nextUrl).then((resolve: any) => {
       console.log(resolve)
       this.header = resolve.header
@@ -45,7 +48,6 @@ export class HomePage {
 
       //to check if we got empty response
       if (this.data.total_count == 0) {
-        this.users = []
         this.isNotFound = true
         return
       }
@@ -143,6 +145,7 @@ export class HomePage {
       //hide the keyboard
       this.renderer.invokeElementMethod(ev.target, 'blur');
       this.users = []
+      this.nextUrl = ""
       if (this.query) {
         this.fetchData(this.query)
       }
