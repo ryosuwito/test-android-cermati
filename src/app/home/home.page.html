@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar class="new-background-color">
+    <ion-searchbar placeholder="Search Github Users" (ionInput)="search($event)" animated showCancelButton="">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="min-height: 100vh">
+  <div *ngIf="isNotFound">
+    <img src="assets/img/notfound.png" style="width: 100vw; margin-top:15vh">
+    <h5 class="main-title">Uppss..<br>Yang kamu cari tidak ada <br> Coba kata kunci lain ya !</h5>
+  </div>
+  <div *ngIf="isNoInternet">
+    <img src="assets/img/nointernet.png" style="width: 100vw; margin-top:15vh">
+    <h5 class="main-title">Ding Dong...<br>Kamu tidak terhubung ke internet <br> Coba cek koneksi kamu ya !</h5>
+  </div>
+  <div *ngIf="isLimitReached">
+    <img src="assets/img/limit.png" style="width: 100vw; margin-top:15vh">
+    <h5 class="main-title">Maaf ya...<br>Kamu sudah melebihi batas pencarian <br> Tunggu sebentar, lalu coba lagi ya !</h5>
+  </div>
+  <div *ngIf="users">
+    <ion-list>
+      <ion-item *ngFor="let item of users">
+        <ion-avatar class="my-avatar" slot="start">
+          <ion-img class="my-avatar" src={{item.avatar_url}}></ion-img>
+        </ion-avatar>
+        <ion-label>{{item.login}}</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>

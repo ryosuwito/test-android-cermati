@@ -1,0 +1,7 @@
+{
+  "name": "test cermati",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
